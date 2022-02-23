@@ -9,7 +9,7 @@ PATCHED_DIR=$TMP_DIR-patched
 mkdir $TMP_DIR
 sudo mount -o loop $FILE $TMP_DIR
 cp -r $TMP_DIR $PATCHED_DIR
-sudo unmount $TMP_DIR
+sudo umount $TMP_DIR
 rm -rf $TMP_DIR
 
 ./bin/navicat-patcher $PATCHED_DIR
