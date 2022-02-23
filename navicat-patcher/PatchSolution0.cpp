@@ -167,7 +167,7 @@ namespace nkg {
                 }
             }
 
-            prinf("[i] Generated machine code!")
+            prinf("[i] Generated machine code!");
 
             if (RefSegment && PatchMarkOffset.has_value() && MachineCodeRva.has_value() && MachineCodeSize.has_value()) {
                 m_RefSegment = RefSegment;
