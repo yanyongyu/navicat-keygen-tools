@@ -14,6 +14,21 @@ rm -rf $TMP_DIR
 
 ./bin/navicat-patcher $PATCHED_DIR
 
+# patch glib2
+wget https://archive.archlinux.org/packages/g/glib2/glib2-2.68.4-1-x86_64.pkg.tar.zst
+tar xvf glib2-2.68.4-1-x86_64.pkg.tar.zst -C $PATCHED_DIR
+rm glib2-2.68.4-1-x86_64.pkg.tar.zst
+
+# patch libffi
+wget https://archive.archlinux.org/packages/l/libffi/libffi-3.3-4-x86_64.pkg.tar.zst
+tar xvf libffi-3.3-4-x86_64.pkg.tar.zst -C $PATCHED_DIR
+rm libffi-3.3-4-x86_64.pkg.tar.zst
+
+# patch glibc
+wget https://archive.archlinux.org/packages/g/glibc/glibc-2.35-1-x86_64.pkg.tar.zst
+tar xvf glibc-2.35-1-x86_64.pkg.tar.zst -C $PATCHED_DIR
+rm glibc-2.35-1-x86_64.pkg.tar.zst
+
 wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
 chmod +x appimagetool-x86_64.AppImage
 ./appimagetool-x86_64.AppImage $PATCHED_DIR $DIST_FILE
