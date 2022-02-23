@@ -39,6 +39,7 @@ jobs:
           make all
           wget --no-check-certificate -O navicat.AppImage ${{ github.event.inputs.url }}
           ls -l navicat.AppImage
+          chmod +x ./scripts/patch.sh
           ./scripts/patch.sh navicat
       
       - name: Upload Keygen
