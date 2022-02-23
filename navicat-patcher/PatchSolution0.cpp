@@ -180,7 +180,7 @@ namespace nkg {
 
             return true;
         } catch (ARL::Exception& e) {
-            printf("[-] %s\n", e->m_Message);
+            printf("[-] %s\n", e.m_Message);
             printf("[-] PatchSolution0 ...... Omitted\n");
             return false;
         }
