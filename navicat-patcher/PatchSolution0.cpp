@@ -85,8 +85,6 @@ namespace nkg {
                 );
                 auto cbMachineCode = static_cast<size_t>(sec_hdr_text->sh_size - ARL::AddressDelta(lpMachineCode, sec_view_text));
                 MachineCodeRva = m_Image.ConvertPtrToRva(lpMachineCode);
-                
-                printf("[i] Found Context");
 
                 Disassembler.SetContext({ lpMachineCode, cbMachineCode, MachineCodeRva.value() });
 
@@ -113,8 +111,6 @@ namespace nkg {
                 } else {
                     throw ARL::AssertionError(__BASE_FILE__, __LINE__, "Something unexpected happened.");
                 }
-
-                printf("[i] Got char_reg and lpsz_reg\n");
 
                 if (Disassembler.Next() && Disassembler.Next() && Disassembler.Next()) {
                     MachineCodeSize = static_cast<size_t>(Disassembler.GetContext().Address - MachineCodeRva.value());
@@ -166,8 +162,6 @@ namespace nkg {
                     throw ARL::AssertionError(__BASE_FILE__, __LINE__, "Something unexpected happened.");
                 }
             }
-
-            printf("[i] Generated machine code!");
 
             if (RefSegment && PatchMarkOffset.has_value() && MachineCodeRva.has_value() && MachineCodeSize.has_value()) {
                 m_RefSegment = RefSegment;
