@@ -67,8 +67,6 @@ namespace nkg {
                 }
             }
 
-            printf("[i] Found free space!\n");
-
             {
                 auto Disassembler = m_DisassemblyEngine.CreateDisassembler();
                 auto Assembler = m_AssemblyEngine.CreateAssembler();
@@ -88,6 +86,8 @@ namespace nkg {
                 auto cbMachineCode = static_cast<size_t>(sec_hdr_text->sh_size - ARL::AddressDelta(lpMachineCode, sec_view_text));
                 MachineCodeRva = m_Image.ConvertPtrToRva(lpMachineCode);
                 
+                printf("[i] Found Context");
+
                 Disassembler.SetContext({ lpMachineCode, cbMachineCode, MachineCodeRva.value() });
 
                 int char_reg;
