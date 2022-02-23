@@ -28,15 +28,15 @@ namespace nkg {
                 throw ARL::Exception(__BASE_FILE__, __LINE__, "Not amd64 platform.");
             }
 
-            for (size_t i = 0; i < m_Image.NumberOfElfProgramHeaders(); ++i) {
-                auto seg_hdr = m_Image.ElfProgramHeader(i);
-                if (seg_hdr->p_type != PT_NULL && seg_hdr->p_filesz >= sizeof(PatchMarkType)) {
-                    auto lpMark = m_Image.ElfOffset<const PatchMarkType*>(seg_hdr->p_offset + seg_hdr->p_filesz - sizeof(PatchMarkType));
-                    if (lpMark->Starter == PatchMarkStarter || lpMark->Terminator == PatchMarkTerminator) {
-                        throw ARL::Exception(__BASE_FILE__, __LINE__, "Already patched.");
-                    }
-                }
-            }
+            // for (size_t i = 0; i < m_Image.NumberOfElfProgramHeaders(); ++i) {
+            //     auto seg_hdr = m_Image.ElfProgramHeader(i);
+            //     if (seg_hdr->p_type != PT_NULL && seg_hdr->p_filesz >= sizeof(PatchMarkType)) {
+            //         auto lpMark = m_Image.ElfOffset<const PatchMarkType*>(seg_hdr->p_offset + seg_hdr->p_filesz - sizeof(PatchMarkType));
+            //         if (lpMark->Starter == PatchMarkStarter || lpMark->Terminator == PatchMarkTerminator) {
+            //             throw ARL::Exception(__BASE_FILE__, __LINE__, "Already patched.");
+            //         }
+            //     }
+            // }
 
             {
                 std::map<Elf64_Off, Elf64_Xword> SpaceMap{ { 0, m_Image.ElfSize() } };
