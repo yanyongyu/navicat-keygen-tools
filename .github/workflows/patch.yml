@@ -39,7 +39,7 @@ jobs:
           make all
 
       - name: Download AppImage
-        run: wget ${{ github.event.inputs.url }} -O navicat.AppImage
+        run: wget -O navicat.AppImage ${{ github.event.inputs.url }}
       
       - name: Patch AppImage
         run: ./scripts/patch.sh navicat
