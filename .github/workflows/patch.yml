@@ -37,12 +37,9 @@ jobs:
       - run: |
           cd navicat-keygen
           make all
-
-      - name: Download AppImage
-        run: wget -O navicat.AppImage ${{ github.event.inputs.url }}
-      
-      - name: Patch AppImage
-        run: ./scripts/patch.sh navicat
+          wget -O navicat.AppImage ${{ github.event.inputs.url }}
+          ls -l navicat.AppImage
+          ./scripts/patch.sh navicat
       
       - name: Upload Keygen
         uses: actions/upload-artifact@v2
