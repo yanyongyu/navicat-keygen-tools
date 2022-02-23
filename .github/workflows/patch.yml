@@ -19,7 +19,7 @@ jobs:
 
       - uses: actions/checkout@v2
         with:
-          repo: keystone-engine/keystone
+          repository: keystone-engine/keystone
           path: keystone
       
       - run: |
