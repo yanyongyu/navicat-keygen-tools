@@ -37,7 +37,7 @@ jobs:
       - run: |
           cd navicat-keygen
           make all
-          wget -O navicat.AppImage ${{ github.event.inputs.url }}
+          wget --no-check-certificate -O navicat.AppImage ${{ github.event.inputs.url }}
           ls -l navicat.AppImage
           ./scripts/patch.sh navicat
       
@@ -45,10 +45,10 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: navicat-patcher-keygen
-          path: bin/
+          path: navicat-keygen/bin/
       
       - name: Upload AppImage
         uses: actions/upload-artifact@v2
         with:
           name: navicat-patched
-          path: navicat-patched.AppImage
+          path: navicat-keygen/navicat-patched.AppImage
