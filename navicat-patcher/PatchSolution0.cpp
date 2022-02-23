@@ -28,15 +28,15 @@ namespace nkg {
                 throw ARL::Exception(__BASE_FILE__, __LINE__, "Not amd64 platform.");
             }
 
-            // for (size_t i = 0; i < m_Image.NumberOfElfProgramHeaders(); ++i) {
-            //     auto seg_hdr = m_Image.ElfProgramHeader(i);
-            //     if (seg_hdr->p_type != PT_NULL && seg_hdr->p_filesz >= sizeof(PatchMarkType)) {
-            //         auto lpMark = m_Image.ElfOffset<const PatchMarkType*>(seg_hdr->p_offset + seg_hdr->p_filesz - sizeof(PatchMarkType));
-            //         if (lpMark->Starter == PatchMarkStarter || lpMark->Terminator == PatchMarkTerminator) {
-            //             throw ARL::Exception(__BASE_FILE__, __LINE__, "Already patched.");
-            //         }
-            //     }
-            // }
+            for (size_t i = 0; i < m_Image.NumberOfElfProgramHeaders(); ++i) {
+                auto seg_hdr = m_Image.ElfProgramHeader(i);
+                if (seg_hdr->p_type != PT_NULL && seg_hdr->p_filesz >= sizeof(PatchMarkType)) {
+                    auto lpMark = m_Image.ElfOffset<const PatchMarkType*>(seg_hdr->p_offset + seg_hdr->p_filesz - sizeof(PatchMarkType));
+                    if (lpMark->Starter == PatchMarkStarter || lpMark->Terminator == PatchMarkTerminator) {
+                        throw ARL::Exception(__BASE_FILE__, __LINE__, "Already patched.");
+                    }
+                }
+            }
 
             {
                 std::map<Elf64_Off, Elf64_Xword> SpaceMap{ { 0, m_Image.ElfSize() } };
@@ -66,6 +66,8 @@ namespace nkg {
                     }
                 }
             }
+
+            printf("[i] Found free space!\n");
 
             {
                 auto Disassembler = m_DisassemblyEngine.CreateDisassembler();
@@ -111,6 +113,8 @@ namespace nkg {
                 } else {
                     throw ARL::AssertionError(__BASE_FILE__, __LINE__, "Something unexpected happened.");
                 }
+
+                printf("[i] Got char_reg and lpsz_reg\n");
 
                 if (Disassembler.Next() && Disassembler.Next() && Disassembler.Next()) {
                     MachineCodeSize = static_cast<size_t>(Disassembler.GetContext().Address - MachineCodeRva.value());
@@ -162,6 +166,8 @@ namespace nkg {
                     throw ARL::AssertionError(__BASE_FILE__, __LINE__, "Something unexpected happened.");
                 }
             }
+
+            prinf("[i] Generated machine code!")
 
             if (RefSegment && PatchMarkOffset.has_value() && MachineCodeRva.has_value() && MachineCodeSize.has_value()) {
                 m_RefSegment = RefSegment;
