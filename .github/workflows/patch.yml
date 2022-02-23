@@ -45,11 +45,8 @@ jobs:
       - name: Upload Keygen
         uses: actions/upload-artifact@v2
         with:
-          name: navicat-patcher-keygen
-          path: navicat-keygen/bin/
-      
-      - name: Upload AppImage
-        uses: actions/upload-artifact@v2
-        with:
           name: navicat-patched
-          path: navicat-keygen/navicat-patched.AppImage
+          path: |
+            navicat-keygen/bin/
+            navicat-keygen/navicat-patched.AppImage
+            navicat-keygen/RegPrivateKey.pem
