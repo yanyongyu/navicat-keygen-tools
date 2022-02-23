@@ -1,0 +1,50 @@
+name: Build and Patch
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Download AppImage from URL
+        type: string
+        required: true
+
+jobs:
+  Build-Patch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Dependencies
+        run: |
+          sudo apt install libcapstone-dev libcapstone3 g++ cmake rapidjson-dev
+
+      - uses: actions/checkout@v2
+        with:
+          repo: keystone-engine/keystone
+      
+      - run: |
+          mkdir build && cd build
+          ../make-share.sh
+          sudo make install
+          sudo ldconfig
+      
+      - uses: actions/checkout@v2
+
+      - run: make all
+
+      - name: Download AppImage
+        run: wget ${{ github.event.inputs.url }} -O navicat.AppImage
+      
+      - name: Patch AppImage
+        run: ./scripts/patch.sh navicat
+      
+      - name: Upload Keygen
+        uses: actions/upload-artifact@v2
+        with:
+          name: navicat-patcher-keygen
+          path: bin/
+      
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v2
+        with:
+          name: navicat-patched
+          path: navicat-patched.AppImage
