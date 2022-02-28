@@ -25,9 +25,9 @@ tar xvf libffi-3.3-4-x86_64.pkg.tar.zst -C $PATCHED_DIR
 rm libffi-3.3-4-x86_64.pkg.tar.zst
 
 # patch glibc
-wget -q https://archive.archlinux.org/packages/g/glibc/glibc-2.33-5-x86_64.pkg.tar.zst
-tar xvf glibc-2.33-5-x86_64.pkg.tar.zst -C $PATCHED_DIR
-rm glibc-2.33-5-x86_64.pkg.tar.zst
+wget -q https://archive.archlinux.org/packages/g/glibc/glibc-2.35-2-x86_64.pkg.tar.zst
+tar xvf glibc-2.35-2-x86_64.pkg.tar.zst -C $PATCHED_DIR
+rm glibc-2.35-2-x86_64.pkg.tar.zst
 
 wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
 chmod +x appimagetool-x86_64.AppImage
